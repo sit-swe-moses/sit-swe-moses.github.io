@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moses Loh | SIT SWE | Creative Code &amp; Digital Garden</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk for vibrant floral-tech typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration for Custom Fonts & Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            petal: {
+              pink: '#FF5E9E',
+              coral: '#FF7E67',
+              peach: '#FFB5A7',
+              lavender: '#B892FF',
+              mint: '#4EE2B0',
+              cyan: '#00D2FF',
+              lime: '#A8F552',
+              cream: '#FFFDF9',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+
+<body class="antialiased selection:bg-petal-pink selection:text-white">
+
+  <!-- ========================================================================
+       FLOATING INTERACTIVE BACKGROUND BOTANICAL-TECH SVGs (PARALLAX)
+       ======================================================================== -->
+  <div id="parallax-canvas" class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <!-- Top-Left Tech-Lotus SVG -->
+    <svg data-speed="0.03" class="parallax-layer absolute -top-12 -left-12 w-72 h-72 opacity-55 animate-float" viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="petalGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF5E9E" />
+          <stop offset="100%" stop-color="#B892FF" />
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="82" stroke="#00D2FF" stroke-width="1" stroke-dasharray="4 6" class="animate-spin-slow" style="transform-origin: 100px 100px;" />
+      <path d="M100 25C118 58 118 85 100 100C82 85 82 58 100 25Z" fill="url(#petalGrad1)" fill-opacity="0.45" />
+      <path d="M100 175C118 142 118 115 100 100C82 115 82 142 100 175Z" fill="url(#petalGrad1)" fill-opacity="0.45" />
+      <path d="M25 100C58 82 85 82 100 100C85 118 58 118 25 100Z" fill="#4EE2B0" fill-opacity="0.45" />
+      <path d="M175 100C142 82 115 82 100 100C115 118 142 118 175 100Z" fill="#4EE2B0" fill-opacity="0.45" />
+      <circle cx="100" cy="100" r="10" fill="#FFFDF9" stroke="#FF5E9E" stroke-width="2.5" />
+    </svg>
+
+    <!-- Bottom-Right Cyber-Blossom SVG -->
+    <svg data-speed="-0.04" class="parallax-layer absolute top-1/3 -right-16 w-80 h-80 opacity-50 animate-float" style="animation-delay: 1.5s;" viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="petalGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00D2FF" />
+          <stop offset="100%" stop-color="#A8F552" />
+        </linearGradient>
+      </defs>
+      <polygon points="100,15 173,57 173,142 100,185 27,142 27,57" stroke="#FF5E9E" stroke-width="1.2" stroke-dasharray="3 5" />
+      <ellipse cx="100" cy="60" rx="18" ry="36" fill="url(#petalGrad2)" fill-opacity="0.4" />
+      <ellipse cx="100" cy="140" rx="18" ry="36" fill="url(#petalGrad2)" fill-opacity="0.4" />
+      <ellipse cx="60" cy="100" rx="36" ry="18" fill="#B892FF" fill-opacity="0.35" />
+      <ellipse cx="140" cy="100" rx="36" ry="18" fill="#B892FF" fill-opacity="0.35" />
+      <circle cx="100" cy="100" r="8" fill="#00D2FF" />
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       STICKY GLASSMORPHIC NAVIGATION HEADER
+       ======================================================================== -->
+  <header class="sticky top-4 z-50 px-4 sm:px-6 lg:px-8">
+    <nav class="max-w-5xl mx-auto rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-lg shadow-purple-500/5 px-5 py-3 flex items-center justify-between reveal-item is-visible">
+      <!-- Brand Logo -->
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="w-9 h-9 rounded-full bg-gradient-to-tr from-petal-pink via-petal-lavender to-petal-cyan flex items-center justify-center text-white font-display font-bold text-lg shadow-md group-hover:rotate-45 transition-transform duration-300">
+          ✿
+        </span>
+        <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-slate-900 via-purple-900 to-pink-600 bg-clip-text text-transparent">
+          sit-swe-moses<span class="text-petal-coral">.github</span><span class="text-petal-cyan">.io</span>
+        </span>
+      </a>
+
+      <!-- High-Level Navigation Buttons (Smooth Scroll to Sections) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          data-scroll-target="#about-me"
+          class="nav-scroll-btn px-4 py-2 rounded-full text-sm font-semibold text-slate-700 hover:text-petal-pink hover:bg-pink-50/80 transition-all cursor-pointer">
+          About Me
+        </button>
+        <button
+          type="button"
+          data-scroll-target="#resources"
+          class="nav-scroll-btn px-4 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-petal-pink to-petal-lavender shadow-md shadow-pink-500/20 hover:shadow-pink-500/35 hover:scale-105 transition-all cursor-pointer">
+          Resources
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========================================================================
+       HERO ENTRANCE SECTION
+       ======================================================================== -->
+  <main id="top" class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+    <section class="text-center py-8 sm:py-12">
+      <!-- Status Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-pink-200/80 shadow-sm mb-5 reveal-item delay-100">
+        <span class="w-2.5 h-2.5 rounded-full bg-petal-mint animate-ping"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">
+          Moses Loh 🌸 Digital Garden
+        </span>
+      </div>
+
+      <!-- Main Hero Heading -->
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.12] reveal-item delay-200">
+        Navigating this
+        <span class="bg-gradient-to-r from-petal-pink via-petal-lavender to-petal-cyan bg-clip-text text-transparent">
+          Unwritten AI Era
+        </span>
+        <br class="hidden sm:inline" />
+        Here we are
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed reveal-item delay-300">
+        You’ve found my digital garden on GitHub Pages. Browse
+        <span class="font-semibold text-petal-pink bg-pink-50 border border-pink-200/80 px-2 py-0.5 rounded-md">About Me</span>
+        to see who is behind the screen, or check out
+        <span class="font-semibold text-petal-cyan bg-cyan-50 border border-cyan-200/80 px-2 py-0.5 rounded-md">Resources</span>
+        for handy static webpages designed to make life easier.
+      </p>
+
+      <!-- Hero CTA Buttons -->
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-4 reveal-item delay-400">
+        <button
+          type="button"
+          data-scroll-target="#about-me"
+          class="nav-scroll-btn btn-floral-tech px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-petal-pink via-petal-coral to-petal-lavender shadow-lg shadow-pink-500/25 flex items-center gap-2 cursor-pointer">
+          <span>Explore About Me</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          data-scroll-target="#resources"
+          class="nav-scroll-btn btn-floral-tech px-6 py-3 rounded-full font-semibold text-slate-800 bg-white/90 border border-purple-200 shadow-md flex items-center gap-2 cursor-pointer">
+          <span>Browse Repo Resources</span>
+          <span class="text-petal-cyan font-bold">&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 1: ABOUT ME (Your Custom Cards)
+         ====================================================================== -->
+    <section id="about-me" class="scroll-mt-24 pt-6 pb-16">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2 reveal-item">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-petal-pink">01 // Identity &amp; Craft</span>
+          <h2 class="font-display text-3xl font-bold text-slate-900 mt-0.5">About Me</h2>
+        </div>
+        <p class="text-sm text-slate-500">
+          Interact with any card to view its story
+        </p>
+      </div>
+
+      <!-- 2-COLUMN GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- CARD 1: You Only Live Once -->
+        <article class="flip-card reveal-item" tabindex="0">
+          <div class="flip-card-inner">
+            <!-- FRONT: Centered Title -->
+            <div class="flip-face flip-front bg-grad-sakura text-white">
+              <span class="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                Introduction
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow-sm">
+                You Only Live Once
+              </h3>
+            </div>
+
+            <!-- BACK: Layout 1 (Left Image, Right Text Description) -->
+            <div class="flip-face flip-back bg-grad-glass-light text-slate-800">
+              <div class="layout-left-img">
+                <img
+                  src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80"
+                  onerror="this.src='https://placehold.co/400x400/FF5E9E/FFFFFF?text=Flora+UI'"
+                  alt="Vibrant botanical neon art"
+                  class="card-thumb"
+                />
+                <div class="flex flex-col justify-center">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-petal-pink">Who I Am</span>
+                  <h4 class="font-display font-bold text-lg text-slate-900 leading-snug mt-0.5">
+                    Most likely another number
+                  </h4>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                    Naturally curious about how people tick, though often navigating a bit of cognitive overload. Trying to stay mindful of blind spots, knowing everyone is different yet similar enough to
+                    <a href="https://www.linkedin.com/in/moses-loh/" target="_blank" rel="noopener noreferrer" class="font-semibold text-petal-pink underline hover:text-petal-coral">connect</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2: Surviving Uni -->
+        <article class="flip-card reveal-item" tabindex="0">
+          <div class="flip-card-inner">
+            <!-- FRONT: Full-bleed Background Image + Centered Title -->
+            <div
+              class="flip-face flip-front has-bg-image text-white"
+              style="background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80');">
+              <span class="px-3 py-1 rounded-full bg-petal-cyan/30 border border-petal-cyan/60 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                Current Chapter &amp; Focus
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow">
+                Surviving Uni
+              </h3>
+            </div>
+
+            <!-- BACK: Background Image + Layout 2 (Right Image, Left Text Description) -->
+            <div
+              class="flip-face flip-back has-bg-image text-white"
+              style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80');">
+              <div class="layout-right-img">
+                <div class="flex flex-col justify-center pr-1">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-petal-lime">Year 3</span>
+                  <h4 class="font-display font-bold text-lg leading-snug mt-0.5">
+                    Software Engineering
+                  </h4>
+                  <p class="text-xs sm:text-sm text-slate-100/90 mt-1.5 leading-relaxed">
+                    I’ve come to see uni less as a stepping stone and more as a testing ground for resilience. Broad software exposure in an AI-driven world forces me to learn and adapt faster, offering a quiet reminder to stay grounded when nothing stands still.
+                  </p>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80"
+                  onerror="this.src='https://placehold.co/400x400/00D2FF/FFFFFF?text=Motion'"
+                  alt="Colorful prism light"
+                  class="card-thumb"
+                />
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: RESOURCES / REPO PROJECTS (Empty — Copy cards from example.html)
+         ====================================================================== -->
+    <section id="resources" class="scroll-mt-24 pt-4 pb-12">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2 reveal-item">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-petal-cyan">02 // Repository Pages</span>
+          <h2 class="font-display text-3xl font-bold text-slate-900 mt-0.5">Resources &amp; Mini-Apps</h2>
+        </div>
+        <p class="text-sm text-slate-500">
+          Flip to preview 🌸 Click any card to launch
+        </p>
+      </div>
+
+      <!-- 2-COLUMN GRID (Ready for your resource cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- RESOURCE 1: Example Layouts & Templates Reference -->
+        <article
+          class="flip-card is-resource reveal-item"
+          tabindex="0"
+          role="link"
+          aria-label="Open Card Layout & Template Reference"
+          data-href="./example.html"
+          onclick="navigateToRepoPage(this.dataset.href)">
+          <div class="flip-card-inner">
+            <!-- FRONT: Centered Title + Repo Link Badge -->
+            <div class="flip-face flip-front bg-grad-orchid text-white">
+              <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-white/25 text-[11px] font-mono text-white">
+                ./example.html ↗
+              </span>
+              <span class="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                UI Reference
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow-sm">
+                Card Layouts &amp; Templates
+              </h3>
+            </div>
+
+            <!-- BACK: Layout 4 (2-Column List of Text) -->
+            <div class="flip-face flip-back bg-grad-glass-light text-slate-800">
+              <div class="layout-two-col-list">
+                <div class="flex items-center justify-between border-b border-purple-200/70 pb-1.5">
+                  <h4 class="font-display font-bold text-base text-slate-900">
+                    Included Flip-Card Layouts
+                  </h4>
+                  <span class="text-xs font-bold text-petal-pink">Open Page &rarr;</span>
+                </div>
+
+                <div class="list-columns text-xs sm:text-sm font-medium text-slate-700">
+                  <ul class="space-y-1.5">
+                    <li class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-petal-pink"></span> Left Image + Text
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-petal-cyan"></span> Right Image + Text
+                    </li>
+                  </ul>
+                  <ul class="space-y-1.5">
+                    <li class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-petal-mint"></span> Top Image + Text
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-petal-lavender"></span> 2-Column Text List
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       NON-INTRUSIVE TOAST NOTIFICATION (FOR DEMO / PLACEHOLDER LINKS)
+       ======================================================================== -->
+  <div
+    id="repo-toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+    <div class="px-5 py-3 rounded-full bg-slate-900/95 text-white text-sm font-medium shadow-xl border border-white/15 flex items-center gap-2.5 backdrop-blur-md">
+      <span class="w-2.5 h-2.5 rounded-full bg-petal-cyan"></span>
+      <span id="repo-toast-msg">Navigating to repository page...</span>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="relative z-10 border-t border-purple-200/50 bg-white/60 backdrop-blur-sm py-8 text-center text-sm text-slate-500">
+    <p>Crafted with curiosity &amp; code 🌸 Built with <a href="https://deepmind.google/models/model-cards/gemini-4-hydrogen/" target="_blank" rel="noopener noreferrer" class="font-semibold text-petal-pink hover:underline">Google Gemini (Gemini 4 Hydrogen)</a> 🌸 Hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="./js/main.js"></script>
+</body>
+</html>

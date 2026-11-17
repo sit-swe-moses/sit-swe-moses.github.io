@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moses Loh | Card Layout &amp; Template Reference</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            petal: {
+              pink: '#FF5E9E',
+              coral: '#FF7E67',
+              peach: '#FFB5A7',
+              lavender: '#B892FF',
+              mint: '#4EE2B0',
+              cyan: '#00D2FF',
+              lime: '#A8F552',
+              cream: '#FFFDF9',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+
+<body class="antialiased selection:bg-petal-pink selection:text-white">
+
+  <!-- FLOATING INTERACTIVE BACKGROUND BOTANICAL-TECH SVGs -->
+  <div id="parallax-canvas" class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <svg data-speed="0.03" class="parallax-layer absolute -top-12 -left-12 w-72 h-72 opacity-55 animate-float" viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="petalGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF5E9E" />
+          <stop offset="100%" stop-color="#B892FF" />
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="82" stroke="#00D2FF" stroke-width="1" stroke-dasharray="4 6" class="animate-spin-slow" style="transform-origin: 100px 100px;" />
+      <path d="M100 25C118 58 118 85 100 100C82 85 82 58 100 25Z" fill="url(#petalGrad1)" fill-opacity="0.45" />
+      <path d="M100 175C118 142 118 115 100 100C82 115 82 142 100 175Z" fill="url(#petalGrad1)" fill-opacity="0.45" />
+      <path d="M25 100C58 82 85 82 100 100C85 118 58 118 25 100Z" fill="#4EE2B0" fill-opacity="0.45" />
+      <path d="M175 100C142 82 115 82 100 100C115 118 142 118 175 100Z" fill="#4EE2B0" fill-opacity="0.45" />
+      <circle cx="100" cy="100" r="10" fill="#FFFDF9" stroke="#FF5E9E" stroke-width="2.5" />
+    </svg>
+
+    <svg data-speed="-0.04" class="parallax-layer absolute top-1/3 -right-16 w-80 h-80 opacity-50 animate-float" style="animation-delay: 1.5s;" viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="petalGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00D2FF" />
+          <stop offset="100%" stop-color="#A8F552" />
+        </linearGradient>
+      </defs>
+      <polygon points="100,15 173,57 173,142 100,185 27,142 27,57" stroke="#FF5E9E" stroke-width="1.2" stroke-dasharray="3 5" />
+      <ellipse cx="100" cy="60" rx="18" ry="36" fill="url(#petalGrad2)" fill-opacity="0.4" />
+      <ellipse cx="100" cy="140" rx="18" ry="36" fill="url(#petalGrad2)" fill-opacity="0.4" />
+      <ellipse cx="60" cy="100" rx="36" ry="18" fill="#B892FF" fill-opacity="0.35" />
+      <ellipse cx="140" cy="100" rx="36" ry="18" fill="#B892FF" fill-opacity="0.35" />
+      <circle cx="100" cy="100" r="8" fill="#00D2FF" />
+    </svg>
+  </div>
+
+  <!-- STICKY GLASSMORPHIC NAVIGATION HEADER -->
+  <header class="sticky top-4 z-50 px-4 sm:px-6 lg:px-8">
+    <nav class="max-w-5xl mx-auto rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-lg shadow-purple-500/5 px-5 py-3 flex items-center justify-between reveal-item is-visible">
+      <a href="./index.html" class="flex items-center gap-2.5 group">
+        <span class="w-9 h-9 rounded-full bg-gradient-to-tr from-petal-pink via-petal-lavender to-petal-cyan flex items-center justify-center text-white font-display font-bold text-lg shadow-md group-hover:rotate-45 transition-transform duration-300">
+          ✿
+        </span>
+        <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-slate-900 via-purple-900 to-pink-600 bg-clip-text text-transparent">
+          sit-swe-moses<span class="text-petal-coral">.github</span><span class="text-petal-cyan">.io</span>
+        </span>
+      </a>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="./index.html" class="px-4 py-2 rounded-full text-sm font-semibold text-slate-700 hover:text-petal-pink hover:bg-pink-50/80 transition-all">
+          &larr; Home
+        </a>
+        <button
+          type="button"
+          data-scroll-target="#about-me"
+          class="nav-scroll-btn px-4 py-2 rounded-full text-sm font-semibold text-slate-700 hover:text-petal-pink hover:bg-pink-50/80 transition-all cursor-pointer">
+          About Templates
+        </button>
+        <button
+          type="button"
+          data-scroll-target="#resources"
+          class="nav-scroll-btn px-4 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-petal-pink to-petal-lavender shadow-md shadow-pink-500/20 hover:shadow-pink-500/35 hover:scale-105 transition-all cursor-pointer">
+          Resource Templates
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+    <!-- SECTION 1: ABOUT ME TEMPLATES -->
+    <section id="about-me" class="scroll-mt-24 pt-6 pb-16">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2 reveal-item">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-petal-pink">01 // Template Reference</span>
+          <h2 class="font-display text-3xl font-bold text-slate-900 mt-0.5">About Me Card Layouts</h2>
+        </div>
+        <p class="text-sm text-slate-500">Copy any card below into index.html</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- CARD 1: LAYOUT 1 (Left Image, Right Text Description) -->
+        <article class="flip-card reveal-item" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front bg-grad-sakura text-white">
+              <span class="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                Creative Technologist
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow-sm">
+                Digital Botanist &amp; UI Architect
+              </h3>
+            </div>
+            <div class="flip-face flip-back bg-grad-glass-light text-slate-800">
+              <div class="layout-left-img">
+                <img
+                  src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80"
+                  onerror="this.src='https://placehold.co/400x400/FF5E9E/FFFFFF?text=Flora+UI'"
+                  alt="Vibrant botanical neon art"
+                  class="card-thumb"
+                />
+                <div class="flex flex-col justify-center">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-petal-pink">Layout 1</span>
+                  <h4 class="font-display font-bold text-lg text-slate-900 leading-snug mt-0.5">
+                    Left Image, Right Text
+                  </h4>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                    I blend organic floral aesthetics with high-precision front-end engineering—turning static web pages into joyful, tactile experiences.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2: LAYOUT 2 (Right Image, Left Text Description) -->
+        <article class="flip-card reveal-item" tabindex="0">
+          <div class="flip-card-inner">
+            <div
+              class="flip-face flip-front has-bg-image text-white"
+              style="background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80');">
+              <span class="px-3 py-1 rounded-full bg-petal-cyan/30 border border-petal-cyan/60 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                Philosophy
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow">
+                Organic Motion &amp; Micro-Delight
+              </h3>
+            </div>
+            <div
+              class="flip-face flip-back has-bg-image text-white"
+              style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80');">
+              <div class="layout-right-img">
+                <div class="flex flex-col justify-center pr-1">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-petal-lime">Layout 2</span>
+                  <h4 class="font-display font-bold text-lg leading-snug mt-0.5">
+                    Right Image, Left Text
+                  </h4>
+                  <p class="text-xs sm:text-sm text-slate-100/90 mt-1.5 leading-relaxed">
+                    Every hover, scroll, and transition is tuned like a petal unfolding in sunlight—responsive, lightweight, and zero-bloat.
+                  </p>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80"
+                  onerror="this.src='https://placehold.co/400x400/00D2FF/FFFFFF?text=Motion'"
+                  alt="Colorful prism light"
+                  class="card-thumb"
+                />
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 3: LAYOUT 3 (Top Image, Bottom Text Description) -->
+        <article class="flip-card reveal-item" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front bg-grad-cybermint text-slate-900">
+              <span class="px-3 py-1 rounded-full bg-white/50 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                Creative Lab
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold">
+                Generative Art &amp; Shaders
+              </h3>
+            </div>
+            <div class="flip-face flip-back bg-grad-glass-dark">
+              <div class="layout-top-img">
+                <img
+                  src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80"
+                  onerror="this.src='https://placehold.co/800x300/4EE2B0/1E1B2E?text=Generative+Flora'"
+                  alt="Generative light waves"
+                  class="card-thumb"
+                />
+                <div class="flex flex-col justify-center">
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-display font-bold text-base text-petal-mint">
+                      Layout 3: Top Image, Bottom Text
+                    </h4>
+                    <span class="text-[11px] font-mono text-petal-cyan">GLSL / Canvas</span>
+                  </div>
+                  <p class="text-xs text-slate-200 mt-1 leading-relaxed">
+                    Exploring phyllotaxis spirals, procedural color palettes, and interactive browser experiments built with pure vanilla JS and WebGL.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 4: LAYOUT 4 (2-Column List of Text) -->
+        <article class="flip-card reveal-item" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front bg-grad-orchid text-white">
+              <span class="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs font-bold tracking-wider uppercase mb-2">
+                Toolkit &amp; Stack
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow-sm">
+                Core Technologies &amp; Skills
+              </h3>
+            </div>
+            <div class="flip-face flip-back bg-grad-glass-light text-slate-800">
+              <div class="layout-two-col-list">
+                <div class="flex items-center justify-between border-b border-purple-200/70 pb-1.5">
+                  <h4 class="font-display font-bold text-base text-slate-900">
+                    Layout 4: 2-Column Text List
+                  </h4>
+                  <span class="text-xs font-semibold text-petal-lavender">2026 Edition</span>
+                </div>
+                <div class="list-columns text-xs sm:text-sm font-medium text-slate-700">
+                  <ul class="space-y-1.5">
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-pink"></span> HTML5 &amp; Semantic UI</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-cyan"></span> Modern CSS / Tailwind</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-mint"></span> Vanilla JS &amp; ESNext</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-lavender"></span> SVG &amp; CSS Motion</li>
+                  </ul>
+                  <ul class="space-y-1.5">
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-coral"></span> Three.js &amp; Shaders</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-lime"></span> Interactive Math Tools</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-pink"></span> Design Systems</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-cyan"></span> GitHub Pages CI/CD</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 2: RESOURCES TEMPLATES -->
+    <section id="resources" class="scroll-mt-24 pt-4 pb-12">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2 reveal-item">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-petal-cyan">02 // Repository Card Templates</span>
+          <h2 class="font-display text-3xl font-bold text-slate-900 mt-0.5">Resources &amp; Mini-Apps</h2>
+        </div>
+        <p class="text-sm text-slate-500">Update data-href="./resources/your-file.html" when copying</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- RESOURCE 1 -->
+        <article
+          class="flip-card is-resource reveal-item"
+          tabindex="0"
+          role="link"
+          aria-label="Open Calculator Page"
+          data-href="./resources/calculator.html"
+          onclick="navigateToRepoPage(this.dataset.href)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front bg-grad-cybermint text-slate-900">
+              <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-white/70 text-[11px] font-mono font-bold text-slate-800">
+                ./resources/calculator.html ↗
+              </span>
+              <span class="px-3 py-1 rounded-full bg-white/55 text-xs font-bold tracking-wider uppercase mb-2">
+                Utility Tool
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold">
+                Floral Scientific Calculator
+              </h3>
+            </div>
+            <div class="flip-face flip-back bg-grad-glass-light text-slate-800">
+              <div class="layout-left-img">
+                <img
+                  src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=500&q=80"
+                  onerror="this.src='https://placehold.co/400x400/00D2FF/1E1B2E?text=Calc+App'"
+                  alt="Calculator interface preview"
+                  class="card-thumb"
+                />
+                <div class="flex flex-col justify-between h-full py-1">
+                  <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-petal-cyan">Repo Page</span>
+                    <h4 class="font-display font-bold text-lg text-slate-900 leading-snug mt-0.5">
+                      Interactive Math &amp; Unit Solver
+                    </h4>
+                    <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                      A pastel-neon calculator supporting keyboard input, expression history, and trigonometric functions.
+                    </p>
+                  </div>
+                  <span class="inline-flex items-center gap-1 text-xs font-bold text-petal-pink mt-2">
+                    Click card to launch app &rarr;
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- RESOURCE 2 -->
+        <article
+          class="flip-card is-resource reveal-item"
+          tabindex="0"
+          role="link"
+          aria-label="Open Petal Palette Generator"
+          data-href="./resources/palette-garden.html"
+          onclick="navigateToRepoPage(this.dataset.href)">
+          <div class="flip-card-inner">
+            <div
+              class="flip-face flip-front has-bg-image text-white"
+              style="background-image: url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80');">
+              <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-black/45 border border-white/30 text-[11px] font-mono text-white">
+                ./resources/palette-garden.html ↗
+              </span>
+              <span class="px-3 py-1 rounded-full bg-petal-pink/40 border border-pink-300/60 text-xs font-bold tracking-wider uppercase mb-2">
+                Color System
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow">
+                Botanical Palette Studio
+              </h3>
+            </div>
+            <div
+              class="flip-face flip-back has-bg-image text-white"
+              style="background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=800&q=80');">
+              <div class="layout-right-img">
+                <div class="flex flex-col justify-between h-full py-1">
+                  <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-petal-peach">Design Resource</span>
+                    <h4 class="font-display font-bold text-lg leading-snug mt-0.5">
+                      HEX &amp; CSS Token Extractor
+                    </h4>
+                    <p class="text-xs text-slate-100/90 mt-1 leading-relaxed">
+                      Generate harmonious floral gradients and export ready-to-paste Tailwind or CSS custom variables.
+                    </p>
+                  </div>
+                  <span class="inline-flex items-center gap-1 text-xs font-bold text-petal-lime mt-2">
+                    Open Palette Studio &rarr;
+                  </span>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=500&q=80"
+                  onerror="this.src='https://placehold.co/400x400/FF5E9E/FFFFFF?text=Colors'"
+                  alt="Vibrant flower close-up"
+                  class="card-thumb"
+                />
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- RESOURCE 3 -->
+        <article
+          class="flip-card is-resource reveal-item"
+          tabindex="0"
+          role="link"
+          aria-label="Open Focus Pomodoro Bloom"
+          data-href="./resources/pomodoro-bloom.html"
+          onclick="navigateToRepoPage(this.dataset.href)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front bg-grad-sakura text-white">
+              <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-white/25 text-[11px] font-mono text-white">
+                ./resources/pomodoro-bloom.html ↗
+              </span>
+              <span class="px-3 py-1 rounded-full bg-white/25 text-xs font-bold tracking-wider uppercase mb-2">
+                Productivity
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow-sm">
+                Pomodoro Flora Timer
+              </h3>
+            </div>
+            <div class="flip-face flip-back bg-grad-glass-dark">
+              <div class="layout-top-img">
+                <img
+                  src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80"
+                  onerror="this.src='https://placehold.co/800x300/FF5E9E/FFFFFF?text=Pomodoro+Bloom'"
+                  alt="Minimalist plant workspace"
+                  class="card-thumb"
+                />
+                <div class="flex flex-col justify-center">
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-display font-bold text-base text-petal-peach">
+                      Grow a Digital Flower While Focusing
+                    </h4>
+                    <span class="text-xs font-bold text-petal-cyan">Launch &rarr;</span>
+                  </div>
+                  <p class="text-xs text-slate-200 mt-1 leading-relaxed">
+                    25-minute deep work sprints paired with Web Audio ambient chimes and evolving SVG blossoms.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- RESOURCE 4 -->
+        <article
+          class="flip-card is-resource reveal-item"
+          tabindex="0"
+          role="link"
+          aria-label="Open CSS Snippets Cheatsheet"
+          data-href="./resources/snippets.html"
+          onclick="navigateToRepoPage(this.dataset.href)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front bg-grad-orchid text-white">
+              <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-white/25 text-[11px] font-mono text-white">
+                ./resources/snippets.html ↗
+              </span>
+              <span class="px-3 py-1 rounded-full bg-white/25 text-xs font-bold tracking-wider uppercase mb-2">
+                Code Vault
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold drop-shadow-sm">
+                UI Component &amp; SVG Vault
+              </h3>
+            </div>
+            <div class="flip-face flip-back bg-grad-glass-light text-slate-800">
+              <div class="layout-two-col-list">
+                <div class="flex items-center justify-between border-b border-purple-200/70 pb-1.5">
+                  <h4 class="font-display font-bold text-base text-slate-900">
+                    Included Repo Modules
+                  </h4>
+                  <span class="text-xs font-bold text-petal-pink">Open Vault &rarr;</span>
+                </div>
+                <div class="list-columns text-xs sm:text-sm font-medium text-slate-700">
+                  <ul class="space-y-1.5">
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-pink"></span> 3D Flip Card Kit</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-cyan"></span> Glassmorphic Navbars</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-mint"></span> Parallax Petals JS</li>
+                  </ul>
+                  <ul class="space-y-1.5">
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-lavender"></span> Mesh Gradients</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-coral"></span> Responsive Grids</li>
+                    <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-petal-lime"></span> Micro-Interactions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div
+    id="repo-toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+    <div class="px-5 py-3 rounded-full bg-slate-900/95 text-white text-sm font-medium shadow-xl border border-white/15 flex items-center gap-2.5 backdrop-blur-md">
+      <span class="w-2.5 h-2.5 rounded-full bg-petal-cyan"></span>
+      <span id="repo-toast-msg">Navigating to repository page...</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-purple-200/50 bg-white/60 backdrop-blur-sm py-8 text-center text-sm text-slate-500">
+    <p>Crafted with curiosity &amp; code 🌸 Built with <a href="https://deepmind.google/models/model-cards/gemini-4-hydrogen/" target="_blank" rel="noopener noreferrer" class="font-semibold text-petal-pink hover:underline">Google Gemini (Gemini 4 Hydrogen)</a> 🌸 Hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="./js/main.js"></script>
+</body>
+</html>
