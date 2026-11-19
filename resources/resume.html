@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moses Loh | Resume</title>
+    <link rel="stylesheet" href="../css/resume.css" />
+  </head>
+  <body>
+    <!-- 1. Full-Window Paper Breeze Loading Screen (2 Seconds) -->
+    <div id="loader-screen" class="loader-screen">
+      <div id="paper-breeze-container" class="paper-breeze-container"></div>
+      <p class="loader-text">Preparing Portfolio...</p>
+    </div>
+
+    <!-- Green Paint-Brush Circular Hold Indicator (No Background) -->
+    <div id="hold-indicator" class="hold-indicator" aria-hidden="true">
+      <svg class="brush-ring" width="76" height="76" viewBox="0 0 76 76">
+        <defs>
+          <filter
+            id="paintbrush-texture"
+            x="-15%"
+            y="-15%"
+            width="130%"
+            height="130%"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.14"
+              numOctaves="3"
+              seed="4"
+              result="noise"
+            />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="noise"
+              scale="3.4"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+        <!-- Subtle faint guide stroke -->
+        <circle
+          class="brush-ring__track"
+          cx="38"
+          cy="38"
+          r="27"
+          filter="url(#paintbrush-texture)"
+        />
+        <!-- Active green brush stroke -->
+        <circle
+          class="brush-ring__stroke"
+          cx="38"
+          cy="38"
+          r="27"
+          filter="url(#paintbrush-texture)"
+        />
+      </svg>
+      <span class="hold-label">HOLD</span>
+    </div>
+
+    <!-- Main Locked-Viewport Document Stage -->
+    <main id="app-viewport" class="app-viewport hidden">
+      <!-- Top-Left Corner: Floating Home Button -->
+      <div class="top-left-cluster">
+        <a
+          href="../index.html"
+          class="control-btn home-btn"
+          title="Go to Home"
+          aria-label="Go to Home"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </a>
+      </div>
+
+      <!-- Top-Right Corner Controls: Hold Helper + Download PDF + Fullscreen -->
+      <aside class="top-right-controls" aria-label="Document Controls">
+        <div class="corner-helper">
+          <span class="pulse-dot"></span>
+          <span>Hold to flip</span>
+        </div>
+
+        <button
+          id="download-pdf-btn"
+          class="control-btn"
+          type="button"
+          title="Download PDF"
+          aria-label="Download PDF"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download PDF</span>
+        </button>
+
+        <button
+          id="fullscreen-btn"
+          class="control-btn"
+          type="button"
+          title="Toggle Fullscreen"
+          aria-label="Toggle Fullscreen"
+        >
+          <svg
+            id="fs-icon-expand"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <svg
+            id="fs-icon-compress"
+            class="hidden-icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="4 14 10 14 10 20"></polyline>
+            <polyline points="20 10 14 10 14 4"></polyline>
+            <line x1="14" y1="10" x2="21" y2="3"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <span id="fs-label">Fullscreen</span>
+        </button>
+      </aside>
+
+      <!-- Bottom-Right Corner Credits (Visible on Desktop & Mobile) -->
+      <aside class="bottom-right-credits" aria-label="Page Credits">
+        <span>Built with <strong>Gemini 4 Hydrogen Model</strong></span>
+        <span class="credit-sep">•</span>
+        <span>Hosted on <strong>GitHub Pages</strong></span>
+      </aside>
+
+      <div id="scale-wrapper" class="scale-wrapper">
+        <div id="book-stack" class="book-stack">
+          <!-- PAGE 1: Traditional Formal Cover Letter (Always First Page) -->
+          <article class="page cover-letter-page active" data-page="1">
+            <header class="formal-letterhead">
+              <h1>Moses Loh</h1>
+              <p class="formal-contact">
+                Singapore &nbsp;|&nbsp; linkedin.com/in/moses-loh/
+              </p>
+            </header>
+
+            <section class="cl-meta">
+              <p class="cl-date">November 19, 2026</p>
+              <div class="cl-recipient">
+                <p>&nbsp;</p>
+                <p>
+                  To
+                  <strong
+                    >Talent Scouts, Dream-Team Builders, and Future
+                    Collaborators</strong
+                  >
+                </p>
+                <p>&nbsp;</p>
+                <p>
+                  Medium:
+                  <strong>An Interactive Portfolio &amp; Working Log</strong>
+                </p>
+                <p>&nbsp;</p>
+              </div>
+            </section>
+
+            <section class="cl-body">
+              <p>Hello, Future Team,</p>
+              <p>
+                Good engineering rarely starts with having all the answers
+                upfront. It starts with asking better questions, understanding
+                how people use what we build, and staying steady while
+                untangling messy problems.
+              </p>
+              <p>
+                Pursuing Software Engineering at SIT in an AI-driven era has
+                taught me to value adaptability over hype. Drawing on 2.5 years
+                of prior full-time development experience, I take a practical
+                approach to engineering: getting stuck projects moving again,
+                backing technical choices with evidence, and staying mindful of
+                blind spots so teams can ship good work without friction.
+              </p>
+              <p>
+                I am looking for a 12-month IWSP role starting May 2027 where I
+                can grow as an engineer and contribute to impactful,
+                behind-the-scenes work that supports sustainability and
+                everyday society. Most of all, I want to join a team that values
+                open feedback, solid engineering standards, and real mentorship,
+                where my work acts as a reliable part of a larger system. Thanks
+                for stopping by, and feel free to reach out on LinkedIn
+                (linkedin.com/in/moses-loh) if you would like to connect and
+                chat.
+              </p>
+            </section>
+
+            <footer class="cl-signoff">
+              <p>Sincerely,</p>
+              <p class="signature">Moses Loh</p>
+              <div class="page-footer-rule">
+                <span class="page-number">Page 1 of 3</span>
+              </div>
+            </footer>
+          </article>
+
+          <!-- PAGE 2: Traditional Formal Black & White Resume (Consistent Grid) -->
+          <article class="page resume-page" data-page="2">
+            <header class="formal-letterhead">
+              <h1>Moses Loh</h1>
+              <p class="formal-contact">
+                Singapore &nbsp;|&nbsp; linkedin.com/in/moses-loh &nbsp;|&nbsp;
+                github.com/sit-swe-moses
+              </p>
+            </header>
+
+            <section class="formal-summary">
+              <h2 class="section-heading">Professional Summary</h2>
+              <p>
+                Software Engineering undergraduate at Singapore Institute of
+                Technology with 2.5 years of prior full-time development
+                experience across industrial automation, healthcare systems, and
+                full-stack web applications. Focused on building reliable
+                software, unblocking stalled projects, and improving application
+                performance.
+              </p>
+            </section>
+
+            <div class="resume-grid">
+              <aside class="resume-sidebar">
+                <div class="resume-block">
+                  <h2 class="section-heading">Technical Skills</h2>
+                  <ul class="formal-list">
+                    <li>
+                      <strong>Languages &amp; Web:</strong><br />
+                      Python, C#, JavaScript, TypeScript, Java, Kotlin, C, PHP,
+                      SQL, HTML/CSS, JSON
+                    </li>
+                    <li>
+                      <strong>Frameworks:</strong><br />
+                      .NET, FastAPI, Django, Flask, Node.js, Express, Laravel,
+                      LangGraph, React, Vue, Angular, Ionic
+                    </li>
+                    <li>
+                      <strong>ML &amp; Testing:</strong><br />
+                      Pandas, NumPy, Scikit-learn, PyTorch, TensorFlow, Pytest,
+                      Playwright
+                    </li>
+                    <li>
+                      <strong>Databases:</strong><br />
+                      PostgreSQL, MSSQL, MySQL, MariaDB, SQLite, MongoDB, Redis,
+                      ChromaDB
+                    </li>
+                    <li>
+                      <strong>DevOps &amp; Tools:</strong><br />
+                      AWS (EC2), Docker, GitHub Actions, Linux (Ubuntu, Debian,
+                      Kali), Git, Postman, Ollama, Claude Code, OpenCode
+                    </li>
+                  </ul>
+                </div>
+              </aside>
+
+              <section class="resume-main">
+                <div class="resume-block">
+                  <h2 class="section-heading">Professional Experience</h2>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>PHP Developer<br /><small>Full-time</small></h3>
+                      <span class="date">Feb 2023 – Jul 2024</span>
+                    </div>
+                    <p class="entry-org">Innowave Tech, Singapore</p>
+                    <ul>
+                      <li>
+                        Developed real-time industrial monitoring interfaces and
+                        optimized backend data caching for faster page
+                        rendering.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>Developer<br /><small>Full-time</small></h3>
+                      <span class="date">Oct 2021 – Oct 2022</span>
+                    </div>
+                    <p class="entry-org">SMMILE, Singapore</p>
+                    <ul>
+                      <li>
+                        Delivered full-stack enhancements for healthcare clinic
+                        management systems and prototyped decentralized web
+                        applications.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>
+                        Infantryman<br /><small
+                          >Full-time National Service</small
+                        >
+                      </h3>
+                      <span class="date">Aug 2019 – Aug 2021</span>
+                    </div>
+                    <p class="entry-org">Singapore Armed Forces, Singapore</p>
+                    <ul>
+                      <li>
+                        Supported national-level operational logistics and event
+                        execution.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>
+                        Development Technologist<br /><small
+                          >Full-time Temp</small
+                        >
+                      </h3>
+                      <span class="date">Jun 2019 – Aug 2019</span>
+                    </div>
+                    <p class="entry-org">Nanyang Polytechnic, Singapore</p>
+                    <ul>
+                      <li>
+                        Resolved bottlenecks on an internal institutional system
+                        and accelerated feature delivery.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <footer class="page-footer-rule">
+              <span class="page-number">Page 2 of 3</span>
+            </footer>
+          </article>
+
+          <!-- PAGE 3: Traditional Formal Black & White Resume Cont. (Consistent Grid) -->
+          <article class="page resume-page" data-page="3">
+            <header class="formal-letterhead">
+              <h1>Moses Loh</h1>
+              <p class="formal-contact">
+                Year 3 SIT SWE
+              </p>
+            </header>
+
+            <div class="resume-grid">
+              <aside class="resume-sidebar">
+                <div class="resume-block">
+                  <h2 class="section-heading">Honors &amp; Awards</h2>
+                  <ul class="formal-list">
+                    <li>
+                      <strong>Accenture Outstanding Student Award</strong><br />
+                      ICT (Software Engineering), SIT (Oct 2026)
+                    </li>
+                    <li>
+                      <strong>Provost’s List</strong><br />
+                      Singapore Institute of Technology<br />
+                      (AY2025/26 Trimester 1)
+                    </li>
+                    <li>
+                      <strong>Director’s List</strong><br />
+                      Nanyang Polytechnic (AY2018/19 Semesters 1 &amp; 2)
+                    </li>
+                    <li>
+                      <strong>Director’s List</strong><br />
+                      ITE College East <br />
+                      (Jul – Dec 2014)
+                    </li>
+                  </ul>
+                </div>
+              </aside>
+
+              <section class="resume-main">
+                <div class="resume-block">
+                  <h2 class="section-heading">Education</h2>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>Singapore Institute of Technology</h3>
+                      <span class="date">Aug 2024 – Present</span>
+                    </div>
+                    <p class="entry-org">ICT (Software Engineering)</p>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>Nanyang Polytechnic</h3>
+                      <span class="date">Oct 2022 – Oct 2023</span>
+                    </div>
+                    <p class="entry-org">
+                      Specialist Diploma in Information Systems Development
+                    </p>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>Nanyang Polytechnic</h3>
+                      <span class="date">Apr 2016 – Apr 2019</span>
+                    </div>
+                    <p class="entry-org">Diploma in Business Informatics</p>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>ITE College East</h3>
+                      <span class="date">Jan 2014 – Jan 2016</span>
+                    </div>
+                    <p class="entry-org">Nitec in ICT (Cloud Computing)</p>
+                  </div>
+                </div>
+
+                <div class="resume-block">
+                  <h2 class="section-heading">Earlier Internships</h2>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>
+                        Human Resources Intern<br /><small
+                          >3-Month Internship</small
+                        >
+                      </h3>
+                      <span class="date">May 2018 – Aug 2018</span>
+                    </div>
+                    <p class="entry-org">Kaplan Singapore, Singapore</p>
+                    <ul>
+                      <li>
+                        Built custom plugins and data management modules for an
+                        internal content management system.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="entry">
+                    <div class="entry-head">
+                      <h3>Desktop Engineer<br /><small>Internship</small></h3>
+                      <span class="date">Jul 2015 – Dec 2015</span>
+                    </div>
+                    <p class="entry-org">NCS Group, Singapore</p>
+                    <ul>
+                      <li>
+                        Managed daily enterprise workstation deployments, system
+                        configurations, and data migrations.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="resume-block" hidden>
+                  <h2 class="section-heading">
+                    Academic &amp; Technical Projects
+                  </h2>
+                </div>
+              </section>
+            </div>
+
+            <footer class="page-footer-rule">
+              <span class="page-number">Page 3 of 3</span>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <script src="../js/resume.js"></script>
+  </body>
+</html>

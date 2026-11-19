@@ -1,0 +1,707 @@
+/* =========================================
+   1. RESET & NO-SCROLL VIEWPORT LOCK
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-desk: #181b20;
+  --paper-bg: #ffffff;
+  --paper-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --ink-black: #000000;
+  --ink-dark: #1a1a1a;
+  --ink-muted: #444444;
+  --rule-black: #000000;
+  --rule-light: #cccccc;
+  --brush-green: #16a34a;
+  --page-width: 794px;    /* Standard A4 width */
+  --page-height: 1080px;  /* Standard A4 height */
+}
+
+html, body {
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: "Georgia", "Times New Roman", Times, serif;
+  background-color: var(--bg-desk);
+  color: var(--ink-black);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================================
+   2. CONTINUOUS FULL-WINDOW PAPER BREEZE
+   ========================================= */
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  background: radial-gradient(circle at center, #252932 0%, #121418 100%);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.loader-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.paper-breeze-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 1400px;
+  pointer-events: none;
+}
+
+.flying-paper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 320px;
+  background: linear-gradient(135deg, #ffffff 0%, #f1f1f1 100%);
+  border-radius: 2px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: continuousBreeze var(--duration, 1.4s) linear var(--delay, 0s) forwards;
+}
+
+.flying-paper::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  right: 24px;
+  height: 6px;
+  background: #222222;
+  opacity: 0.25;
+  box-shadow:
+    0 22px 0 #222222,
+    0 44px 0 #222222,
+    0 66px 0 #555555,
+    0 88px 0 #222222,
+    0 110px 0 #555555;
+}
+
+@keyframes continuousBreeze {
+  0% {
+    transform: translate3d(-380px, var(--start-y), var(--start-z))
+               rotateX(var(--rot-x-start))
+               rotateY(var(--rot-y-start))
+               rotateZ(var(--rot-z-start));
+  }
+  100% {
+    transform: translate3d(calc(100vw + 380px), var(--end-y), var(--end-z))
+               rotateX(var(--rot-x-end))
+               rotateY(var(--rot-y-end))
+               rotateZ(var(--rot-z-end));
+  }
+}
+
+.loader-text {
+  position: relative;
+  z-index: 20;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(18, 20, 24, 0.78);
+  backdrop-filter: blur(8px);
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================
+   3. GREEN PAINT-BRUSH HOLD INDICATOR (NO BG)
+   ========================================= */
+.hold-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 76px;
+  height: 76px;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.hold-indicator.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.brush-ring {
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.brush-ring__track {
+  fill: none;
+  stroke: rgba(22, 163, 74, 0.22);
+  stroke-width: 6.5;
+  stroke-linecap: round;
+}
+
+.brush-ring__stroke {
+  fill: none;
+  stroke: var(--brush-green);
+  stroke-width: 7.5;
+  stroke-linecap: round;
+  stroke-dasharray: 169.65;
+  stroke-dashoffset: 169.65;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.hold-label {
+  position: absolute;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--brush-green);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+/* =========================================
+   4. VIEWPORT & AUTO-SCALED RESUME STAGE
+   ========================================= */
+.app-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.scale-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.book-stack {
+  position: relative;
+  width: var(--page-width);
+  height: var(--page-height);
+  perspective: 2400px;
+  cursor: pointer;
+}
+
+/* =========================================
+   5. TACTILE CLEAR-AND-TUCK PAGE ANIMATIONS
+   ========================================= */
+.page {
+  position: absolute;
+  inset: 0;
+  background-color: var(--paper-bg);
+  border-radius: 2px;
+  box-shadow: var(--paper-shadow);
+  padding: 3.4rem 3.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+}
+
+/* Soft edge shading while sliding over the page beneath */
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0) 18%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.page.queued {
+  z-index: 1;
+  transform: translate3d(-6px, 6px, 0) scale(0.982) rotateZ(-0.6deg);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.page.next-up {
+  z-index: 2;
+  transform: translate3d(-3px, 3px, 0) scale(0.991) rotateZ(-0.3deg);
+  opacity: 1;
+  pointer-events: none;
+}
+
+.page.active {
+  z-index: 10;
+  transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.page.flipped {
+  z-index: 0;
+  transform: translate3d(-8px, 8px, 0) scale(0.975);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slide completely clear of the right edge -> Drop behind -> Tuck underneath */
+@keyframes clearAndTuck {
+  0% {
+    z-index: 25;
+    transform: perspective(2000px) translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg);
+    box-shadow: var(--paper-shadow);
+  }
+  46% {
+    z-index: 25;
+    /* Clears 100% of the stack width before dropping z-index */
+    transform: perspective(2000px) translate3d(104%, -3%, 35px) rotateY(-14deg) rotateZ(4deg);
+    box-shadow: -18px 22px 45px rgba(0, 0, 0, 0.38);
+  }
+  52% {
+    z-index: 0;
+    transform: perspective(2000px) translate3d(102%, -1%, -25px) rotateY(-8deg) rotateZ(3deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    z-index: 0;
+    transform: perspective(2000px) translate3d(-6px, 6px, -40px) rotateY(0deg) rotateZ(-0.6deg) scale(0.98);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.page.flipping-out {
+  animation: clearAndTuck 0.9s cubic-bezier(0.32, 0.05, 0.22, 1) forwards;
+  pointer-events: none;
+}
+
+.page.flipping-out::after {
+  opacity: 1;
+}
+
+/* Natural Deck-Square / Fan Reset back to Cover Letter */
+@keyframes fanAndSquareStack {
+  0% {
+    transform: translate3d(0, 0, 0) rotateZ(0deg);
+    opacity: 0.4;
+  }
+  45% {
+    transform: translate3d(var(--fan-x, 45px), var(--fan-y, -8px), 0) rotateZ(var(--fan-rot, 3.5deg));
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--rest-x, 0px), var(--rest-y, 0px), 0) rotateZ(0deg) scale(var(--rest-scale, 1));
+    opacity: 1;
+  }
+}
+
+.page.returning {
+  animation: fanAndSquareStack 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* =========================================
+   6. TRADITIONAL FORMAL BLACK & WHITE TYPOGRAPHY
+   ========================================= */
+.formal-letterhead {
+  text-align: center;
+  border-bottom: 2px solid var(--rule-black);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.formal-letterhead h1 {
+  font-size: 2.15rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink-black);
+}
+
+.formal-contact {
+  margin-top: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--ink-dark);
+}
+
+.cl-meta {
+  margin-top: 0.6rem;
+  font-size: 0.96rem;
+  color: var(--ink-black);
+  line-height: 1.55;
+}
+
+.cl-date {
+  margin-bottom: 1.1rem;
+}
+
+.cl-body {
+  margin: 1.6rem 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--ink-dark);
+  text-align: justify;
+}
+
+.cl-signoff {
+  margin-top: 1.8rem;
+  font-size: 1rem;
+}
+
+.signature {
+  font-style: italic;
+  font-size: 1.4rem;
+  margin: 0.85rem 0 1.4rem;
+  color: var(--ink-black);
+}
+
+.formal-summary {
+  margin-bottom: 1.5rem;
+}
+
+.formal-summary p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-dark);
+}
+
+.section-heading {
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-black);
+  border-bottom: 1px solid var(--rule-black);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.resume-grid {
+  display: grid;
+  grid-template-columns: 225px 1fr;
+  gap: 2.2rem;
+  flex: 1;
+}
+
+.resume-sidebar {
+  border-right: 1px solid var(--rule-light);
+  padding-right: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.resume-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.formal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.89rem;
+  line-height: 1.5;
+  color: var(--ink-dark);
+}
+
+.edu-item {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-dark);
+}
+
+.muted-meta {
+  color: var(--ink-muted);
+  font-size: 0.84rem;
+}
+
+.entry {
+  margin-bottom: 1.4rem;
+}
+
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.entry-head h3 {
+  font-size: 0.93rem;
+  font-weight: 700;
+  color: var(--ink-black);
+}
+
+.entry-org {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  margin-bottom: 0.45rem;
+}
+
+.date {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-black);
+}
+
+.entry ul {
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.93rem;
+  line-height: 1.55;
+  color: var(--ink-dark);
+}
+
+.page-footer-rule {
+  border-top: 1px solid var(--rule-light);
+  padding-top: 0.7rem;
+}
+
+.page-number {
+  display: block;
+  text-align: right;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
+/* =========================================
+   7. TOP-LEFT HOME, TOP-RIGHT CONTROLS & BOTTOM-RIGHT CREDITS
+   ========================================= */
+.top-left-cluster {
+  position: fixed;
+  left: 1.25rem;
+  top: 1.15rem;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.top-right-controls,
+.bottom-right-credits {
+  position: fixed;
+  right: 1.25rem;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: rgba(24, 27, 32, 0.84);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.top-right-controls {
+  top: 1.15rem;
+  padding: 0.4rem 0.5rem 0.4rem 0.9rem;
+}
+
+.bottom-right-credits {
+  bottom: 1.15rem;
+  padding: 0.42rem 0.95rem;
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  pointer-events: none;
+}
+
+.bottom-right-credits strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.credit-sep {
+  color: #64748b;
+}
+
+.corner-helper {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  color: #e2e8f0;
+  white-space: nowrap;
+  padding-right: 0.25rem;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--brush-green);
+  box-shadow: 0 0 8px var(--brush-green);
+  animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.home-btn {
+  background: rgba(24, 27, 32, 0.84);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.45rem 0.85rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.home-btn:hover {
+  background: rgba(38, 42, 50, 0.94);
+}
+
+.control-btn:active {
+  transform: scale(0.96);
+}
+
+.hidden-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .top-left-cluster {
+    left: 0.75rem;
+    top: 0.75rem;
+  }
+  .top-right-controls {
+    right: 0.75rem;
+    top: 0.75rem;
+  }
+  .bottom-right-credits {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.68rem;
+    padding: 0.36rem 0.75rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .control-btn span {
+    display: none;
+  }
+  .bottom-right-credits {
+    max-width: calc(100vw - 1.5rem);
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   8. PRINT / PDF EXPORT STYLES
+   ========================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html, body {
+    width: auto;
+    height: auto;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  .loader-screen,
+  .hold-indicator,
+  .top-left-cluster,
+  .top-right-controls,
+  .bottom-right-credits {
+    display: none !important;
+  }
+
+  .app-viewport {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+  }
+
+  .scale-wrapper {
+    display: block !important;
+    transform: none !important;
+  }
+
+  .book-stack {
+    width: 100% !important;
+    height: auto !important;
+    perspective: none !important;
+  }
+
+  .page {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
